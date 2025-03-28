@@ -1,0 +1,264 @@
+:: StoryTitle
+Candlebound level 1
+
+
+:: StoryData
+{
+  "ifid": "367B7761-0DBD-449E-9464-1D6CEEE3E612",
+  "format": "Chapbook",
+  "format-version": "2.3.0",
+  "start": "Inicio",
+  "zoom": 1
+}
+
+
+:: \ Cariño, me han convertido en velas los dediños\  {"position":"875,675","size":"100,100"}
+hasSeenFingers: true
+--
+
+Te lleva unos instantes comprender lo que estás viendo. 
+[after 1s]
+Unos cirios finos y alargados se extienden desde tus nudillos... ¡Una bruja ha convertido tus dedos en velas! 
+[after 2s]
+Pero no unas velas cualquiera: responden como lo harían unos dedos humanos, doblándose y articulándose con normalidad. Es un ligero alivio, pero la situación sigue siendo crítica. 
+
+Necesitas buscar respuesta a las preguntas que te rondan la mente, romper la maldición y escapar de ese lugar.
+
+[[ Volver -> Inicio vela]] 
+
+
+
+
+:: \ Coger vela\  {"position":"750,625","size":"100,100"}
+No parece que se pueda mover, está fija sobre la superficie.
+
+Sin embargo, al acercar la luz a la llama descubres [[ algo terrible... -> Cariño, me han convertido en velas los dediños ]]
+
+
+:: \ Iluminar a tu alrededor\  {"position":"1025,875","size":"100,100"}
+Frente a ti hay una mesa con los siguientes objetos:
+
+Un grupo de [[jaulas]] pequeñas, como para pájaros.
+
+
+Un [[libro]] grande, encuadernado en cuero y cubierto de inscripciones.
+
+
+La [[pared]].
+
+
+:: \ Inicio vela {"position":"900,500","size":"100,100"}
+Sobre una mesa, una vela se ha encendido.
+
+{reveal link: 'Inspeccionar vela', text: 'Es una vela normal, su luz no es muy potente y no alcanzas a ver tu entorno.'}
+
+
+[if hasSeenFingers]
+{reveal link: 'Coger vela', text: 'La vela está fija en la mesa y no puedes cogerla.'}
+
+
+[[ Prender dedo ]]
+
+[else]
+[[ Coger vela ]]
+
+[continued]
+
+
+
+:: \ Obtenido teleport\  {"position":"775,1350","size":"100,100"}
+obtainedTeleport: true
+--
+La polilla se posa sobre el espacio que ocuparía la página arrancada del libro de hechizos, como si hubiera encontrado su lugar. Se agita un par de veces, y de pronto se desdobla, deshaciendo su forma de origami, hasta desplegarse por completo.
+
+La página que se ha añadido al libro explica un hechizo:
+
+[after 2s]
+**Has obtenido la habilidad de [[ teletransportación -> Iluminar a tu alrededor ]].**
+
+
+:: \ Prender dedo\  {"position":"1025,625","size":"100,100"}
+La vela que se ha encendido mágicamente parece fijada a la mesa y no permite que la lleves contigo. Quien sea que la puso allí no buscaba iluminar la sala. Entonces, ¿por qué se ha encendido de repente? [[¿Qué te intenta decir la bruja?]]
+
+
+:: \ Switch pestillo1 {"position":"425,1000","size":"100,100"}
+pestillo1: !pestillo1
+pestillo2: !pestillo2
+--
+
+{embed passage: 'Pestillos'}
+
+
+:: \ Switch pestillo2 {"position":"425,1125","size":"100,100"}
+pestillo2: !pestillo2
+--
+
+{embed passage: 'Pestillos'}
+
+
+:: \ Switch pestillo3 {"position":"425,1250","size":"100,100"}
+pestillo3: !pestillo3
+pestillo2: !pestillo2
+--
+
+{embed passage: 'Pestillos'}
+
+
+:: \ book fail {"position":"1300,1200","size":"100,100"}
+Acercas la mano al libro y este empieza a temblar. Fuerzas con cierta insistencia la tapa, pero lo máximo que consigues es abrirlo unos centímetros antes de que se cierre de golpe. 
+
+{back link, label: 'Volver'}
+
+
+:: Caja de música {"position":"900,1625","size":"100,100"}
+
+
+
+:: Inicio {"position":"900,375","size":"100,100"}
+hasSeenFingers: false
+--
+
+Despiertas en una habitación a oscuras. La única luz que hay son unos débiles rayos de luz de luna que entran a través de una pequeña vidriera a unos metros de ti.
+
+[after 10s]
+[[De pronto, una luz se prende frente a ti. -> Inicio vela]]
+
+
+:: La jaula se ha abierto {"position":"600,1350","size":"100,100"}
+La polilla de papiroflexia que revoloteaba en su interior sale por la puertecita y vuela atraída por la llama de tu dedo.
+
+{cycling link for: 'volar', choices: ['Mueves el dedo', 'por el aire', 'intentando que la polilla', 'no toque la llama', 'pero la criatura', 'te sigue', 'y te sigue', 'sin descanso.']}
+
+
+[if bookIsOpen]
+[after 10s]
+Finalmente, guías a la polilla hasta el [[ libro -> Obtenido teleport ]].
+
+[else]
+[after 10s]
+Al no encontrar un lugar al que llevar a la polilla, esta termina por alcanzar la llama y entra en combustión. Tras unos aleteos agitados, desaparece sin dejar más rastro que un ligero olor a ceniza.
+
+[[ Volver -> Iluminar a tu alrededor ]] 
+
+[continued]
+
+
+
+:: Pestillos {"position":"600,1150","size":"100,100"}
+_pestillo1: 'abierto'
+_pestillo1 (!pestillo1): 'cerrado'
+_pestillo2: 'abierto'
+_pestillo2 (!pestillo2): 'cerrado'
+_pestillo3: 'abierto'
+_pestillo3 (!pestillo3): 'cerrado'
+--
+
+La puerta de la jaula tiene tres cierres:
+
+El primer pestillo está {_pestillo1}. [[ Alternarlo -> Switch pestillo1]]
+
+El segundo pestillo está {_pestillo2}. [[ Alternarlo -> Switch pestillo2]]
+
+El tercer pestillo está {_pestillo3}. [[ Alternarlo -> Switch pestillo3]]
+
+[if pestillo1 && pestillo2 && pestillo3]
+[[La jaula se ha abierto]]
+
+[continue]
+
+
+[[Volver->jaulas]]
+
+
+
+
+
+
+
+
+
+:: Vidriera {"position":"1050,1500","size":"100,100"}
+
+
+
+:: abrir el libro {"position":"1050,1200","size":"100,100"}
+bookIsOpen: true
+--
+
+El libro se abre, y en su interior encuentras que la mayoría de páginas están arrancadas o dañadas.
+
+{back link, label: 'Volver'}
+
+
+:: encender las velas {"position":"1175,1200","size":"100,100"}
+bookCandlesLit: true
+--
+Enciendes todas las velas que cubren el atril utilizando la llama de tu dedo. El libro hace un pequeño movimiento, casi como si se hubiera relajado.
+
+{back link, label: 'Volver'}
+
+
+:: jaulas {"position":"575,950","size":"100,100"}
+Acercas la luz a la parte derecha de la mesa. Sobre ella descansa un grupo de jaulas de diversos tamaños, la mayoría abiertas o rotas.
+
+Una destaca sobre las demás por su diseño más ornamentado y su forma de jaula pajarera. En su interior, lo que parece una polilla de papel revolotea chocando contra las paredes, agitada por la luz que le has acercado.
+
+[[Examinar la puerta de la jaula. ->Pestillos]]
+
+[[ Volver. -> Iluminar a tu alrededor ]]
+
+
+:: libro {"position":"1175,1075","size":"100,100"}
+Sobre la mesa encuentras un atril grande de libros.
+
+El borde superior del atril está cubierto de velas apagadas. Parecen haber visto mucho uso, a juzgar por la forma en la que su cera se ha derretido sobre la madera, fundiéndose con el marco como un bosque de espíritus cansados.
+
+El objeto que descansa céntrico sobre el soporte es un enorme tomo encuadernado en cuero. Runas, símbolos de invocación y piedras incrustadas adornan la portada.
+
+[if !bookIsOpen && !bookCandlesLit]
+Puedes [[abrir el libro -> book fail]] para leer sus contenidos, o [[encender las velas]].
+
+[continued]
+
+
+[if !bookIsOpen && bookCandlesLit]
+Puedes [[abrir el libro]] para leer sus contenidos. Las velas ya están encendidas.
+
+[continued]
+
+
+[if bookIsOpen]
+El libro se encuentra abierto sobre el atril, iluminado por las velas que lo coronan.
+
+[continued]
+
+[if obtainedTeleport]
+La única página recuperada muestra cómo realizar el hechizo de teletransportación.
+
+[continued]
+
+
+[[ Volver -> Iluminar a tu alrededor ]]
+
+
+:: pared {"position":"1450,1000","size":"100,100"}
+Iluminas la pared y encuentras una serie de inscripciones y dibujos para ti incomprensibles.
+
+{back link, label: 'Volver'}
+
+
+:: ¿Qué te intenta decir la bruja? {"position":"1025,750","size":"100,100"}
+pestillo1: false
+pestillo2: false
+pestillo3: false
+bookIsOpen: false
+bookCandlesLit: false
+obtainedTeleport: false
+--
+Una gota de sudor frío resbala por tu frente al comprender la respuesta: reticente, acercas la yema de tu dedo índice al fuego, dejando que la mecha que brota de la punta toque la llama. 
+
+[after 3s]
+Tras un segundo, tu dedo-vela se prende, su fuego más poderoso, e ilumina la sala a tu alrededor.
+
+[after 5s]
+Observas que tener el dedo encendido no te provoca ningún dolor y respiras con alivio. Tus ojos se acostumbran a la luz y [[miras alrededor -> Iluminar a tu alrededor ]]
